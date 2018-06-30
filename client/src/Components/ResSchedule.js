@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './ResSchedule.css'
 import { Table } from 'reactstrap'
+import uuid from 'uuid'
 
 class ResSchedule extends Component {
   constructor(props) {
@@ -160,26 +161,99 @@ class ResSchedule extends Component {
     let daysAft = this.state.daysAft
     for(let i=0; i<daysBef.length; i++) {
       for(let e=0; e<daysBef[i].slots.length; e++) {
-        if()
+        daysAft[i].slots.push(JSON.parse(JSON.stringify(daysBef[i].slots[e])))
+        daysAft[i].slots[e].ini = parseInt(daysBef[i].slots[e].ini.substr(0,2),10)
+        if(daysBef[i].slots[e].end.substr(3,2) === '00') {
+          daysAft[i].slots[e].end = parseInt(daysBef[i].slots[e].end.substr(0,2),10) - 1
+        } else {
+          daysAft[i].slots[e].end = parseInt(daysBef[i].slots[e].end.substr(0,2),10)
+        }
       }
     }
+
+    for(let o=0; o<daysAft.length; o++) {
+      daysAft[o].slots.sort((a,b) => {
+        if(a.ini < b.ini) {
+          return -1
+        } else {
+          return 1
+        }
+      })
+    }
+
+    this.setState({daysAft:daysAft})
   }
 
   UNSAFE_componentWillMount() {
     this.organizeClassesColor(this.props.classesColors)
     this.organizeByDay(this.props.singleArr)
+    this.andDoSlots()
   }
 
   render() {
-    console.log(this.state)
+    let message = []
+    let h = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+    let daysNew = JSON.parse(JSON.stringify(this.state.daysAft))
+    let days = daysNew.map((day,step) => {
+      message.push([])
+      let checked = false
+      let hours = h.map((hour) => {
+        for(let e=0; e<day.slots.length; e++) {
+          let removed = false
+          let color, name
+          if(hour === 7) {
+            message[step].push(day.slots.length)
+            message[step].push(removed, checked)
+            message[step].push(day.slots[e].ini,day.slots[e].end)
+          }
+          if(hour === day.slots[e].ini) {
+            checked = true
+          }
+          if(hour === day.slots[e].end) {
+            checked = false
+            removed = true
+            color = day.slots[e].color
+            name = day.slots[e].name
+            if(hour === 7) {
+              message[step].push('bo')
+            }
+            // message[step].push('bo',hour,day.slots[e].end)
+            // message[step].push(JSON.parse(JSON.stringify(day.slots[e])))
+            day.slots.splice(e, 1)
+          }
+          if(checked) {
+            return(
+              <tr key={uuid.v4()} style={{background:day.slots[e].color}}><td>{day.slots[e].name}</td></tr>
+            )
+          }
+          if(removed) {
+            return(
+              <tr key={uuid.v4()} style={{background:color}}><td>{name}</td></tr>
+            )
+          }
+        }
+        return(<tr key={uuid.v4()}><td>{'-'}</td></tr>)
+      })
+      return(
+        <td style={{margin:0,padding:0}} key={uuid.v4()}>
+          <Table size='sm' style={{margin:0,padding:0}}>
+            <tbody>
+              <tr><td>{day.day}</td></tr>
+              {hours}
+            </tbody>
+          </Table>
+        </td>
+      )
+    })
     return(
-      <div style={{height:400,fontSize:11}}>
-        <Table bordered style={{height:'100%',width:'100%'}}>
+      <div style={{fontSize:11}}>
+        <Table bordered style={{width:800}}>
           <tbody>
             <tr>
               <td style={{margin:0,padding:0}}>
                 <Table size='sm' style={{margin:0,padding:0}}>
                   <tbody>
+                    <tr><td>Hora</td></tr>
                     <tr><td>6:00</td></tr>
                     <tr><td>7:00</td></tr>
                     <tr><td>8:00</td></tr>
@@ -199,52 +273,13 @@ class ResSchedule extends Component {
                   </tbody>
                 </Table>
               </td>
-              <td>
-                <Table bordered size='sm'>
-                  <tbody>
-                  </tbody>
-                </Table>
-              </td>
-              <td>
-                <Table bordered size='sm'>
-                  <tbody>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                  </tbody>
-                </Table>
-              </td>
-              <td>
-                <Table bordered size='sm'>
-                  <tbody>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                    <tr><td>6:00</td></tr>
-                  </tbody>
-                </Table>
-              </td>
+              {days}
             </tr>
           </tbody>
         </Table>
-        <pre>{JSON.stringify(this.props.arr,null,2)}</pre>
+        <hr/>
+        {/* <pre>{JSON.stringify(message)}</pre>
+        <pre>{JSON.stringify(this.state.daysAft,null,2)}</pre> */}
       </div>
     )
   }
