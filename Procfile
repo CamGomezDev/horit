@@ -1,1 +1,1 @@
-web: npm run build-start
+web: cd client && npm install && cd .. && npm install && npm run build-start
