@@ -10,7 +10,7 @@ class App extends AppFilled {
   constructor() {
     super()
     this.state = {
-      classes: Array(3).fill(null).map(() => ({
+      classes: Array(4).fill(null).map(() => ({
         id: uuid.v4(),
         name: '', 
         schedules: [
