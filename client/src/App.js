@@ -176,7 +176,7 @@ class App extends AppFilled {
 
   ready() {
     let classThings = this.state.classes
-    fetch('http://localhost:5000/schedule', {
+    fetch('/schedule', {
       method: 'POST',
       body: JSON.stringify(classThings),
       headers: {
