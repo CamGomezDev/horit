@@ -74,7 +74,7 @@ class ClassInput extends Component {
           </Button>
           <Col xs={10} md={8} lg={5}>
             <InputGroup style={{height:30}}>
-              <Input value={this.props.name} style={{fontSize:14}} onChange={this.changeName}></Input>
+              <Input defaultValue={this.props.name} style={{fontSize:14}} onBlur={this.changeName}></Input>
               <InputGroupAddon addonType="prepend">
                 <Button onClick={this.toggle} style={{paddingTop:3}}><i className={"fa fa-caret-"+(this.state.rotated ? 'up' : 'down')} aria-hidden="true"></i></Button>
               </InputGroupAddon>

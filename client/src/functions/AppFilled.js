@@ -14,7 +14,7 @@ class AppFilled extends Component {
             { 
               id: uuid.v4(),
               days: [], 
-              hours: { ini: '00:00', end: '00:00' } 
+              hours: { ini: '06:00', end: '07:00' } 
             }
           ]
         }
@@ -43,7 +43,7 @@ class AppFilled extends Component {
         { 
           id: uuid.v4(),
           days: [], 
-          hours: { ini: '00:00', end: '00:00' } 
+          hours: { ini: '06:00', end: '07:00' } 
         }
       ]
     })
@@ -69,7 +69,7 @@ class AppFilled extends Component {
     classThings[classIndex].schedules[scheduleIndex].timetables.push({
       id: uuid.v4(),
       days: [],
-      hours: { ini: '00:00', end: '00:00' }
+      hours: { ini: '06:00', end: '07:00' }
     })
     this.setState({
       classes: classThings

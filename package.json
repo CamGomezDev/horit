@@ -8,12 +8,13 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "build-start": "npm run build --prefix client && nodemon server.js",
-    "__comment": "dev: concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Camilo Gomez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^4.1.1",
     "express": "^4.17.1"
   },
   "devDependencies": {

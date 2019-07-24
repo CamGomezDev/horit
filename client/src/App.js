@@ -10,24 +10,9 @@ class App extends AppFilled {
   constructor() {
     super()
     this.state = {
-      classes: Array(4).fill(null).map(() => ({
-        id: uuid.v4(),
-        name: '', 
-        schedules: [
-          {
-            id: uuid.v4(),
-            timetables: [
-              {
-                id: uuid.v4(),
-                days: [],
-                hours: { ini: '00:00', end: '00:00' }
-              }
-            ]
-          }
-        ]
-      })),
+      classes: this.newClasses(),
       results: [],
-      classesColors: []
+      classesName: []
     }
     this.addClass          = this.addClass.bind(this)
     this.deleteClass       = this.deleteClass.bind(this)
@@ -43,142 +28,165 @@ class App extends AppFilled {
     this.dummy             = this.dummy.bind(this)
   }
 
+  newClasses() {
+    return Array(4).fill(null).map(() => ({
+      id: uuid.v4(),
+      name: '',
+      schedules: [
+        {
+          id: uuid.v4(),
+          timetables: [
+            {
+              id: uuid.v4(),
+              days: [],
+              hours: { ini: '00:00', end: '00:00' }
+            }
+          ]
+        }
+      ]
+    }))
+  }
+
   dummy() {
-    let classThings = this.state.classes
-    for(let i=0; i<classThings.length; i++) {
-      if(i===0) {
-        classThings[i].name = 'Fís. Bás. I'
-        //weird
-        this.deleteSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[0].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[1].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[3].id)
-
-        classThings[i].schedules[0].timetables[0].days = ['Lu']
-        classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
-        classThings[i].schedules[0].timetables[0].hours.end = '18:00'
-        classThings[i].schedules[0].timetables[1].days = ['Mi', 'Vi']
-        classThings[i].schedules[0].timetables[1].hours.ini = '08:00'
-        classThings[i].schedules[0].timetables[1].hours.end = '10:00'
-
-        classThings[i].schedules[1].timetables[0].days = ['Lu']
-        classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
-        classThings[i].schedules[1].timetables[0].hours.end = '14:00'
-        classThings[i].schedules[1].timetables[1].days = ['Mi', 'Vi']
-        classThings[i].schedules[1].timetables[1].hours.ini = '08:00'
-        classThings[i].schedules[1].timetables[1].hours.end = '10:00'
-
-        classThings[i].schedules[2].timetables[0].days = ['Lu']
-        classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
-        classThings[i].schedules[2].timetables[0].hours.end = '16:00'
-        classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
-        classThings[i].schedules[2].timetables[1].hours.ini = '12:00'
-        classThings[i].schedules[2].timetables[1].hours.end = '14:00'
-
-        classThings[i].schedules[3].timetables[0].days = ['Lu']
-        classThings[i].schedules[3].timetables[0].hours.ini = '18:00'
-        classThings[i].schedules[3].timetables[0].hours.end = '20:00'
-        classThings[i].schedules[3].timetables[1].days = ['Mi', 'Vi']
-        classThings[i].schedules[3].timetables[1].hours.ini = '12:00'
-        classThings[i].schedules[3].timetables[1].hours.end = '14:00'
+    this.setState({classes: this.newClasses()}, () => {
+      let classThings = this.state.classes
+      
+      for(let i=0; i<classThings.length; i++) {
+        if(i===0) {
+          classThings[i].name = 'Fís. Bás. I'
+          //weird
+          this.deleteSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[0].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[1].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[3].id)
+  
+          classThings[i].schedules[0].timetables[0].days = ['Lu']
+          classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
+          classThings[i].schedules[0].timetables[0].hours.end = '18:00'
+          classThings[i].schedules[0].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[0].timetables[1].hours.ini = '08:00'
+          classThings[i].schedules[0].timetables[1].hours.end = '10:00'
+  
+          classThings[i].schedules[1].timetables[0].days = ['Lu']
+          classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
+          classThings[i].schedules[1].timetables[0].hours.end = '14:00'
+          classThings[i].schedules[1].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[1].timetables[1].hours.ini = '08:00'
+          classThings[i].schedules[1].timetables[1].hours.end = '10:00'
+  
+          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
+          classThings[i].schedules[2].timetables[0].hours.end = '16:00'
+          classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[1].hours.ini = '12:00'
+          classThings[i].schedules[2].timetables[1].hours.end = '14:00'
+  
+          classThings[i].schedules[3].timetables[0].days = ['Lu']
+          classThings[i].schedules[3].timetables[0].hours.ini = '18:00'
+          classThings[i].schedules[3].timetables[0].hours.end = '20:00'
+          classThings[i].schedules[3].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[3].timetables[1].hours.ini = '12:00'
+          classThings[i].schedules[3].timetables[1].hours.end = '14:00'
+        }
+        if(i===1) {
+          classThings[i].name = 'Fís. Exp. I'
+          //yep, weird
+          this.deleteSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+  
+          classThings[i].schedules[0].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[0].timetables[0].hours.ini = '08:00'
+          classThings[i].schedules[0].timetables[0].hours.end = '10:00'
+  
+          classThings[i].schedules[1].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[1].timetables[0].hours.ini = '10:00'
+          classThings[i].schedules[1].timetables[0].hours.end = '12:00'
+  
+          classThings[i].schedules[2].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[0].hours.ini = '12:00'
+          classThings[i].schedules[2].timetables[0].hours.end = '14:00'
+  
+          classThings[i].schedules[3].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[3].timetables[0].hours.ini = '14:00'
+          classThings[i].schedules[3].timetables[0].hours.end = '16:00'
+  
+          classThings[i].schedules[4].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[4].timetables[0].hours.ini = '16:00'
+          classThings[i].schedules[4].timetables[0].hours.end = '18:00'
+        }
+        if(i===2) {
+          classThings[i].name = 'Álg. Lin.'
+          //yep, weird
+          this.deleteSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
+  
+          classThings[i].schedules[0].timetables[0].days = ['Lu', 'Mi', 'Vi']
+          classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
+          classThings[i].schedules[0].timetables[0].hours.end = '18:00'
+  
+          classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
+          classThings[i].schedules[1].timetables[0].hours.end = '14:00'
+  
+          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
+          classThings[i].schedules[2].timetables[0].hours.end = '16:00'
+          classThings[i].schedules[2].timetables[1].days = ['Ma', 'Ju']
+          classThings[i].schedules[2].timetables[1].hours.ini = '06:00'
+          classThings[i].schedules[2].timetables[1].hours.end = '08:00'
+        }
+        if(i===3) {
+          classThings[i].name = 'Cálc. I'
+          //yep, weird
+          this.deleteSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addSchedule(classThings[i].id)
+          this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
+          this.addSchedule(classThings[i].id)
+  
+          classThings[i].schedules[0].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[0].timetables[0].hours.ini = '06:00'
+          classThings[i].schedules[0].timetables[0].hours.end = '08:00'
+  
+          classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
+          classThings[i].schedules[1].timetables[0].hours.end = '14:00'
+  
+          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].hours.ini = '10:00'
+          classThings[i].schedules[2].timetables[0].hours.end = '12:00'
+          classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[1].hours.ini = '14:00'
+          classThings[i].schedules[2].timetables[1].hours.end = '16:00'
+  
+          classThings[i].schedules[3].timetables[0].days = ['Lu', 'Mi', 'Vi']
+          classThings[i].schedules[3].timetables[0].hours.ini = '06:00'
+          classThings[i].schedules[3].timetables[0].hours.end = '08:00'
+        }
       }
-      if(i===1) {
-        classThings[i].name = 'Fís. Exp. I'
-        //yep, weird
-        this.deleteSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-
-        classThings[i].schedules[0].timetables[0].days = ['Mi', 'Vi']
-        classThings[i].schedules[0].timetables[0].hours.ini = '08:00'
-        classThings[i].schedules[0].timetables[0].hours.end = '10:00'
-
-        classThings[i].schedules[1].timetables[0].days = ['Mi', 'Vi']
-        classThings[i].schedules[1].timetables[0].hours.ini = '10:00'
-        classThings[i].schedules[1].timetables[0].hours.end = '12:00'
-
-        classThings[i].schedules[2].timetables[0].days = ['Mi', 'Vi']
-        classThings[i].schedules[2].timetables[0].hours.ini = '12:00'
-        classThings[i].schedules[2].timetables[0].hours.end = '14:00'
-
-        classThings[i].schedules[3].timetables[0].days = ['Mi', 'Vi']
-        classThings[i].schedules[3].timetables[0].hours.ini = '14:00'
-        classThings[i].schedules[3].timetables[0].hours.end = '16:00'
-
-        classThings[i].schedules[4].timetables[0].days = ['Mi', 'Vi']
-        classThings[i].schedules[4].timetables[0].hours.ini = '16:00'
-        classThings[i].schedules[4].timetables[0].hours.end = '18:00'
-      }
-      if(i===2) {
-        classThings[i].name = 'Álg. Lin.'
-        //yep, weird
-        this.deleteSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
-
-        classThings[i].schedules[0].timetables[0].days = ['Lu', 'Mi', 'Vi']
-        classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
-        classThings[i].schedules[0].timetables[0].hours.end = '18:00'
-
-        classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
-        classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
-        classThings[i].schedules[1].timetables[0].hours.end = '14:00'
-
-        classThings[i].schedules[2].timetables[0].days = ['Lu']
-        classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
-        classThings[i].schedules[2].timetables[0].hours.end = '16:00'
-        classThings[i].schedules[2].timetables[1].days = ['Ma', 'Ju']
-        classThings[i].schedules[2].timetables[1].hours.ini = '06:00'
-        classThings[i].schedules[2].timetables[1].hours.end = '08:00'
-      }
-      if(i===3) {
-        classThings[i].name = 'Cálc. I'
-        //yep, weird
-        this.deleteSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addSchedule(classThings[i].id)
-        this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
-        this.addSchedule(classThings[i].id)
-
-        classThings[i].schedules[0].timetables[0].days = ['Lu', 'Ma', 'Ju']
-        classThings[i].schedules[0].timetables[0].hours.ini = '06:00'
-        classThings[i].schedules[0].timetables[0].hours.end = '08:00'
-
-        classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
-        classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
-        classThings[i].schedules[1].timetables[0].hours.end = '14:00'
-
-        classThings[i].schedules[2].timetables[0].days = ['Lu']
-        classThings[i].schedules[2].timetables[0].hours.ini = '10:00'
-        classThings[i].schedules[2].timetables[0].hours.end = '12:00'
-        classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
-        classThings[i].schedules[2].timetables[1].hours.ini = '14:00'
-        classThings[i].schedules[2].timetables[1].hours.end = '16:00'
-
-        classThings[i].schedules[3].timetables[0].days = ['Lu', 'Mi', 'Vi']
-        classThings[i].schedules[3].timetables[0].hours.ini = '06:00'
-        classThings[i].schedules[3].timetables[0].hours.end = '08:00'
-      }
-    }
-    this.setState({classes: classThings})
+      this.setState({classes: classThings})
+    })
   }
 
   ready() {
-    let classThings = this.state.classes
+    // console.log(classThings)
+    // fetch('http://localhost:5000/schedule', {
     fetch('/schedule', {
       method: 'POST',
-      body: JSON.stringify(classThings),
+      body: JSON.stringify(this.state.classes),
       headers: {
         'Content-Type': 'application/json',
       }
@@ -187,15 +195,16 @@ class App extends AppFilled {
     .catch(err => console.log('Request failure: ', err))
   }
 
-  received(arr) {
-    let results = this.state.results
-    let classesColors = this.state.classesColors
+  received(resGroups) {
+    let classesName = []
     for(let e = 0; e < this.state.classes.length; e++) {
-      classesColors.push({name:this.state.classes[e].name,color:''})
+      classesName.push({name:this.state.classes[e].name, id:this.state.classes[e].id})
     }
-    results = arr
-    this.setState({results:results, classesColors:classesColors})
+    let results = resGroups
+    this.setState({results:results, classesName:classesName})
   }
+
+  // textMode() {}
 
   render() {
     let classInputs = this.state.classes.map((classObject, step) => {
@@ -212,7 +221,7 @@ class App extends AppFilled {
       )
     })
 
-    let tables = <SchedulesGroup arr={this.state.results} classesColors={this.state.classesColors}/>
+    let tables = <SchedulesGroup results={this.state.results} classesName={this.state.classesName}/>
     return (
       <div className="App">
         <Container>
@@ -228,8 +237,12 @@ class App extends AppFilled {
           </Button>
           {' '}
           <Button color="primary" onClick={this.dummy} style={{fontSize:14}}>
-            <i className="fa fa-check" aria-hidden="true"></i> Dummy
+            <i className="fa fa-align-justify" aria-hidden="true"></i> Prueba
           </Button>
+          {/* {' '}
+          <Button color="primary" onClick={this.textMode} style={{fontSize:14}}>
+            <i className="fa fa-align-justify" aria-hidden="true"></i> Modo Texto
+          </Button> */}
           <div style={{marginTop:20}}>
             {tables}
           </div>

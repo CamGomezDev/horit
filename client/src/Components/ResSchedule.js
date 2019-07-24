@@ -7,158 +7,129 @@ class ResSchedule extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      days: [
-        {
-          day:'Lu',
-          slots:[]
-        },
-        {
-          day:'Ma',
-          slots:[]
-        },
-        {
-          day:'Mi',
-          slots:[]
-        },
-        {
-          day:'Ju',
-          slots:[]
-        },
-        {
-          day:'Vi',
-          slots:[]
-        },
-        {
-          day:'Sa',
-          slots:[]
-        },
-        {
-          day:'Do',
-          slots:[]
-        },
-      ],
-      daysAft: [
-        {
-          day:'Lu',
-          slots:[]
-        },
-        {
-          day:'Ma',
-          slots:[]
-        },
-        {
-          day:'Mi',
-          slots:[]
-        },
-        {
-          day:'Ju',
-          slots:[]
-        },
-        {
-          day:'Vi',
-          slots:[]
-        },
-        {
-          day:'Sa',
-          slots:[]
-        },
-        {
-          day:'Do',
-          slots:[]
-        },
-      ],
-      classes: [
-      ]
+      days: [],
+      daysAft: [],
+      classesWithColors: this.props.classesWithColors
     }
-  }
-  colors = ['red','blue','green','yellow','pink','orange','grey']
 
-  organizeClassesColor(arr) {
-    let classesThings = this.state.classes
-    for(let i=0; i<arr.length; i++) {
-      classesThings.push({name:arr[i].name,color:this.colors[i]})
-    }
-    this.setState({classes:classesThings})
+    this.state.days = this.organizeByDay(this.props.classesWithSchedules)
+    this.state.daysAft = this.createSlots()
   }
 
-  checkColor(className) {
-    for(let a=0; a<this.state.classes.length; a++) {
-      if(this.state.classes[a].name === className) {
-        return(this.state.classes[a].color)
-      }
-    }
+  newDays() {
+    let days = [
+      {
+        day:'Lu',
+        slots:[]
+      },
+      {
+        day:'Ma',
+        slots:[]
+      },
+      {
+        day:'Mi',
+        slots:[]
+      },
+      {
+        day:'Ju',
+        slots:[]
+      },
+      {
+        day:'Vi',
+        slots:[]
+      },
+      {
+        day:'Sa',
+        slots:[]
+      },
+      {
+        day:'Do',
+        slots:[]
+      },
+    ]
+
+    return days
   }
 
-  organizeByDay(arr) {
-    let days = this.state.days
-    for(let i=0; i<arr.length; i++) {
-      for(let e=0; e<arr[i].timetables.length; e++) {
-        for(let o=0; o<arr[i].timetables[e].days.length; o++) {
-          if(arr[i].timetables[e].days[o]==='Lu') {
+  organizeByDay(classesWithSchs) {
+    let days = this.newDays()
+    for(let i=0; i<classesWithSchs.length; i++) {
+      for(let e=0; e<classesWithSchs[i].timetables.length; e++) {
+        for(let o=0; o<classesWithSchs[i].timetables[e].days.length; o++) {
+          if(classesWithSchs[i].timetables[e].days[o]==='Lu') {
             days[0].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Ma') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Ma') {
             days[1].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Mi') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Mi') {
             days[2].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Ju') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Ju') {
             days[3].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Vi') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Vi') {
             days[4].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Sa') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Sa') {
             days[5].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
-          if(arr[i].timetables[e].days[o]==='Do') {
+          if(classesWithSchs[i].timetables[e].days[o]==='Do') {
             days[6].slots.push({
-              color:this.checkColor(arr[i].className),
-              name:arr[i].className,
-              ini:arr[i].timetables[e].hours.ini,
-              end:arr[i].timetables[e].hours.end,
+              color:this.checkColor(classesWithSchs[i].classId),
+              name:classesWithSchs[i].className,
+              ini:classesWithSchs[i].timetables[e].hours.ini,
+              end:classesWithSchs[i].timetables[e].hours.end,
             })
           }
         }
       }
     }
-    this.setState({days:days})
+
+    return days
   }
 
-  andDoSlots() {
+  checkColor(classId) {
+    for(let a = 0; a < this.state.classesWithColors.length; a++) {
+      if(this.state.classesWithColors[a].id === classId) {
+        return(this.state.classesWithColors[a].color)
+      }
+    }
+  }
+
+  createSlots() {
     let daysBef = this.state.days
-    let daysAft = this.state.daysAft
+    let daysAft = this.newDays()
     for(let i=0; i<daysBef.length; i++) {
       for(let e=0; e<daysBef[i].slots.length; e++) {
         daysAft[i].slots.push(JSON.parse(JSON.stringify(daysBef[i].slots[e])))
@@ -171,7 +142,7 @@ class ResSchedule extends Component {
       }
     }
 
-    for(let o=0; o<daysAft.length; o++) {
+    for(let o = 0; o < daysAft.length; o++) {
       daysAft[o].slots.sort((a,b) => {
         if(a.ini < b.ini) {
           return -1
@@ -181,13 +152,7 @@ class ResSchedule extends Component {
       })
     }
 
-    this.setState({daysAft:daysAft})
-  }
-
-  UNSAFE_componentWillMount() {
-    this.organizeClassesColor(this.props.classesColors)
-    this.organizeByDay(this.props.singleArr)
-    this.andDoSlots()
+    return daysAft
   }
 
   render() {
@@ -223,12 +188,12 @@ class ResSchedule extends Component {
           }
           if(checked) {
             return(
-              <tr key={uuid.v4()} style={{background:day.slots[e].color}}><td>{day.slots[e].name}</td></tr>
+              <tr key={uuid.v4()} style={{background:day.slots[e].color}}><td>{day.slots[e].name || '-'}</td></tr>
             )
           }
           if(removed) {
             return(
-              <tr key={uuid.v4()} style={{background:color}}><td>{name}</td></tr>
+              <tr key={uuid.v4()} style={{background:color}}><td>{name || '-'}</td></tr>
             )
           }
         }

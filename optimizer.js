@@ -51,7 +51,7 @@ function optimizer (classThings) {
       schedsArray.push(himArr)
     }
   
-    let match = false
+    let intersection = false
   
     for(let e = 0; e < schedsArray.length; e++) {
       for(let o = e + 1; o < schedsArray.length; o++) {
@@ -66,8 +66,8 @@ function optimizer (classThings) {
             for(let b = 0; b < timetable1.days.length; b++) {
               for(let d = 0; d < timetable2.days.length; d++) {
                 if(timetable1.days[b] === timetable2.days[d]) {
-                  if((ini1 >= ini2 && ini1 < end2) || (end1 <= end2 && end1 > ini2)) {
-                    match = true
+                  if((ini1 >= ini2 && ini1 < end2) || (end1 <= end2 && end1 > ini2) || (ini1 <= ini2 && end1 >= end2)) {
+                    intersection = true
                   }
                 }
               }
@@ -76,7 +76,7 @@ function optimizer (classThings) {
         } 
       }
     }
-    if(!match) {
+    if(!intersection) {
       return {done: true, arr: schedsArray}
     }
     return {done: false, arr: []}
