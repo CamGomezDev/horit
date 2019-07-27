@@ -7,16 +7,16 @@ class ResSchedule extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      days: [],
-      daysAft: [],
-      classesWithColors: this.props.classesWithColors
+      daysRaw:   [], // días con las clases en desorden y horas de inicio y fin como strings
+      daysClean: [], // días con las clases en orden y horas de inicio y fin como ints
+      classesWithColor: this.props.classesWithColor
     }
 
-    this.state.days = this.organizeByDay(this.props.classesWithSchedules)
-    this.state.daysAft = this.createSlots()
+    this.state.daysRaw   = this.arrangeClassesByDay(this.props.classesWithSchedule)
+    this.state.daysClean = this.organizeDays()
   }
 
-  newDays() {
+  newWeekDays() {
     let days = [
       {
         day:'Lu',
@@ -51,66 +51,33 @@ class ResSchedule extends Component {
     return days
   }
 
-  organizeByDay(classesWithSchs) {
-    let days = this.newDays()
-    for(let i=0; i<classesWithSchs.length; i++) {
-      for(let e=0; e<classesWithSchs[i].timetables.length; e++) {
-        for(let o=0; o<classesWithSchs[i].timetables[e].days.length; o++) {
-          if(classesWithSchs[i].timetables[e].days[o]==='Lu') {
-            days[0].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+  /* Se llena el arreglo days con los arreglos de todas las clases que se dan 
+     cada día y su horario del día */
+  arrangeClassesByDay(classesWithSch) {
+    let days = this.newWeekDays()
+    for (let i = 0; i < classesWithSch.length; i++) {
+      for (let e = 0; e < classesWithSch[i].timetables.length; e++) {
+        for (let o = 0; o < classesWithSch[i].timetables[e].days.length; o++) {
+          if (classesWithSch[i].timetables[e].days[o] === 'Lu') {
+            days[0].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Ma') {
-            days[1].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if (classesWithSch[i].timetables[e].days[o] === 'Ma') {
+            days[1].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Mi') {
-            days[2].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if (classesWithSch[i].timetables[e].days[o] === 'Mi') {
+            days[2].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Ju') {
-            days[3].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if (classesWithSch[i].timetables[e].days[o] === 'Ju') {
+            days[3].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Vi') {
-            days[4].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if (classesWithSch[i].timetables[e].days[o] === 'Vi') {
+            days[4].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Sa') {
-            days[5].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if(classesWithSch[i].timetables[e].days[o] === 'Sa') {
+            days[5].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSchs[i].timetables[e].days[o]==='Do') {
-            days[6].slots.push({
-              color:this.checkColor(classesWithSchs[i].classId),
-              name:classesWithSchs[i].className,
-              ini:classesWithSchs[i].timetables[e].hours.ini,
-              end:classesWithSchs[i].timetables[e].hours.end,
-            })
+          if(classesWithSch[i].timetables[e].days[o] === 'Do') {
+            days[6].slots.push(this.newSlot(classesWithSch[i], e))
           }
         }
       }
@@ -119,22 +86,33 @@ class ResSchedule extends Component {
     return days
   }
 
+  newSlot(classWithSchedule, e) {
+    return ({
+      color: this.checkColor(classWithSchedule.classId),
+      name: classWithSchedule.className,
+      ini: classWithSchedule.timetables[e].hours.ini,
+      end: classWithSchedule.timetables[e].hours.end,
+    })
+  }
+
   checkColor(classId) {
-    for(let a = 0; a < this.state.classesWithColors.length; a++) {
-      if(this.state.classesWithColors[a].id === classId) {
-        return(this.state.classesWithColors[a].color)
+    for (let a = 0; a < this.state.classesWithColor.length; a++) {
+      if (this.state.classesWithColor[a].id === classId) {
+        return(this.state.classesWithColor[a].color)
       }
     }
   }
 
-  createSlots() {
-    let daysBef = this.state.days
-    let daysAft = this.newDays()
-    for(let i=0; i<daysBef.length; i++) {
-      for(let e=0; e<daysBef[i].slots.length; e++) {
+  organizeDays() {
+    let daysBef = this.state.daysRaw
+    let daysAft = this.newWeekDays()
+
+    // Se convierten las horas como strings en ints
+    for (let i = 0; i < daysBef.length; i++) {
+      for (let e = 0; e < daysBef[i].slots.length; e++) {
         daysAft[i].slots.push(JSON.parse(JSON.stringify(daysBef[i].slots[e])))
         daysAft[i].slots[e].ini = parseInt(daysBef[i].slots[e].ini.substr(0,2),10)
-        if(daysBef[i].slots[e].end.substr(3,2) === '00') {
+        if (daysBef[i].slots[e].end.substr(3,2) === '00') {
           daysAft[i].slots[e].end = parseInt(daysBef[i].slots[e].end.substr(0,2),10) - 1
         } else {
           daysAft[i].slots[e].end = parseInt(daysBef[i].slots[e].end.substr(0,2),10)
@@ -142,6 +120,7 @@ class ResSchedule extends Component {
       }
     }
 
+    // Se arreglan las clases en orden en cada día
     for(let o = 0; o < daysAft.length; o++) {
       daysAft[o].slots.sort((a,b) => {
         if(a.ini < b.ini) {
@@ -156,42 +135,31 @@ class ResSchedule extends Component {
   }
 
   render() {
-    let message = []
     let h = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
-    let daysNew = JSON.parse(JSON.stringify(this.state.daysAft))
-    let days = daysNew.map((day,step) => {
-      message.push([])
+    let daysCleanCopy = JSON.parse(JSON.stringify(this.state.daysClean))
+    // En este punto, las clases están en orden en cada día
+    let days = daysCleanCopy.map((day, step) => {
       let checked = false
       let hours = h.map((hour) => {
-        for(let e=0; e<day.slots.length; e++) {
+        for (let e = 0; e < day.slots.length; e++) {
           let removed = false
           let color, name
-          if(hour === 7) {
-            message[step].push(day.slots.length)
-            message[step].push(removed, checked)
-            message[step].push(day.slots[e].ini,day.slots[e].end)
-          }
-          if(hour === day.slots[e].ini) {
+          if (hour === day.slots[e].ini) {
             checked = true
           }
-          if(hour === day.slots[e].end) {
+          if (hour === day.slots[e].end) {
             checked = false
             removed = true
             color = day.slots[e].color
             name = day.slots[e].name
-            if(hour === 7) {
-              message[step].push('bo')
-            }
-            // message[step].push('bo',hour,day.slots[e].end)
-            // message[step].push(JSON.parse(JSON.stringify(day.slots[e])))
             day.slots.splice(e, 1)
           }
-          if(checked) {
+          if (checked) {
             return(
               <tr key={uuid.v4()} style={{background:day.slots[e].color}}><td>{day.slots[e].name || '-'}</td></tr>
             )
           }
-          if(removed) {
+          if (removed) {
             return(
               <tr key={uuid.v4()} style={{background:color}}><td>{name || '-'}</td></tr>
             )

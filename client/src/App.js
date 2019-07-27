@@ -3,7 +3,7 @@ import AppFilled from './functions/AppFilled'
 import { Form, Container, Button } from 'reactstrap'
 import uuid from 'uuid'
 import ClassInput from './Components/ClassInput'
-import SchedulesGroup from './Components/SchedulesGroup'
+import ResSchedulesGroup from './Components/ResSchedulesGroup'
 import './App.css'
 
 class App extends AppFilled {
@@ -11,7 +11,7 @@ class App extends AppFilled {
     super()
     this.state = {
       classes: this.newClasses(),
-      results: [],
+      goodCombs: [],
       classesName: []
     }
     this.addClass          = this.addClass.bind(this)
@@ -25,7 +25,7 @@ class App extends AppFilled {
     this.changeHoursEnd    = this.changeHoursEnd.bind(this)
     this.changeDaysChecked = this.changeDaysChecked.bind(this)
     this.ready             = this.ready.bind(this)
-    this.dummy             = this.dummy.bind(this)
+    this.test              = this.test.bind(this)
   }
 
   newClasses() {
@@ -47,7 +47,7 @@ class App extends AppFilled {
     }))
   }
 
-  dummy() {
+  test() {
     this.setState({classes: this.newClasses()}, () => {
       let classThings = this.state.classes
       
@@ -182,7 +182,6 @@ class App extends AppFilled {
   }
 
   ready() {
-    // console.log(classThings)
     // fetch('http://localhost:5000/schedule', {
     fetch('/schedule', {
       method: 'POST',
@@ -191,20 +190,17 @@ class App extends AppFilled {
         'Content-Type': 'application/json',
       }
     }).then(res => res.json())
-    .then(data => this.received(data.groups))
+    .then(data => this.received(data.combs))
     .catch(err => console.log('Request failure: ', err))
   }
 
-  received(resGroups) {
+  received(resCombs) {
     let classesName = []
     for(let e = 0; e < this.state.classes.length; e++) {
       classesName.push({name:this.state.classes[e].name, id:this.state.classes[e].id})
     }
-    let results = resGroups
-    this.setState({results:results, classesName:classesName})
+    this.setState({goodCombs:resCombs, classesName:classesName})
   }
-
-  // textMode() {}
 
   render() {
     let classInputs = this.state.classes.map((classObject, step) => {
@@ -221,7 +217,7 @@ class App extends AppFilled {
       )
     })
 
-    let tables = <SchedulesGroup results={this.state.results} classesName={this.state.classesName}/>
+    let tables = <ResSchedulesGroup goodCombs={this.state.goodCombs} classesName={this.state.classesName}/>
     return (
       <div className="App">
         <Container>
@@ -236,7 +232,7 @@ class App extends AppFilled {
             <i className="fa fa-check" aria-hidden="true"></i> Listo
           </Button>
           {' '}
-          <Button color="primary" onClick={this.dummy} style={{fontSize:14}}>
+          <Button color="primary" onClick={this.test} style={{fontSize:14}}>
             <i className="fa fa-align-justify" aria-hidden="true"></i> Prueba
           </Button>
           {/* {' '}
