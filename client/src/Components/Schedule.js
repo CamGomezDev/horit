@@ -44,12 +44,12 @@ class Schedule extends Component {
             })}
             <div>
               <Button color="primary"  style={{fontSize:14,marginLeft:15}} onClick={e => {e.preventDefault(); this.props.addTimetable(this.props.id)}}>
-                <i className="fa fa-plus" aria-hidden="true"></i> Cuadro
+                <i className="fa fa-plus" aria-hidden="true"></i> Box
               </Button>
             </div>
           </Row>
           <Button color="danger" style={{fontSize:14}} className="pull-right" onClick={e => {e.preventDefault(); this.props.deleteSchedule(this.props.id)}}>
-            <i className="fa fa-times" aria-hidden="true"></i> Horario
+            <i className="fa fa-times" aria-hidden="true"></i> Schedule
           </Button>
         </CardBody>
       </Card>

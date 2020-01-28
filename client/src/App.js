@@ -65,31 +65,31 @@ class App extends AppFilled {
           this.addSchedule(classThings[i].id)
           this.addTimetable(classThings[i].id, classThings[i].schedules[3].id)
   
-          classThings[i].schedules[0].timetables[0].days = ['Lu']
+          classThings[i].schedules[0].timetables[0].days = ['Mo']
           classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
           classThings[i].schedules[0].timetables[0].hours.end = '18:00'
-          classThings[i].schedules[0].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[0].timetables[1].days = ['We', 'Fr']
           classThings[i].schedules[0].timetables[1].hours.ini = '08:00'
           classThings[i].schedules[0].timetables[1].hours.end = '10:00'
   
-          classThings[i].schedules[1].timetables[0].days = ['Lu']
+          classThings[i].schedules[1].timetables[0].days = ['Mo']
           classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
           classThings[i].schedules[1].timetables[0].hours.end = '14:00'
-          classThings[i].schedules[1].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[1].timetables[1].days = ['We', 'Fr']
           classThings[i].schedules[1].timetables[1].hours.ini = '08:00'
           classThings[i].schedules[1].timetables[1].hours.end = '10:00'
   
-          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].days = ['Mo']
           classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
           classThings[i].schedules[2].timetables[0].hours.end = '16:00'
-          classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[1].days = ['We', 'Fr']
           classThings[i].schedules[2].timetables[1].hours.ini = '12:00'
           classThings[i].schedules[2].timetables[1].hours.end = '14:00'
   
-          classThings[i].schedules[3].timetables[0].days = ['Lu']
+          classThings[i].schedules[3].timetables[0].days = ['Mo']
           classThings[i].schedules[3].timetables[0].hours.ini = '18:00'
           classThings[i].schedules[3].timetables[0].hours.end = '20:00'
-          classThings[i].schedules[3].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[3].timetables[1].days = ['We', 'Fr']
           classThings[i].schedules[3].timetables[1].hours.ini = '12:00'
           classThings[i].schedules[3].timetables[1].hours.end = '14:00'
         }
@@ -103,23 +103,23 @@ class App extends AppFilled {
           this.addSchedule(classThings[i].id)
           this.addSchedule(classThings[i].id)
   
-          classThings[i].schedules[0].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[0].timetables[0].days = ['We', 'Fr']
           classThings[i].schedules[0].timetables[0].hours.ini = '08:00'
           classThings[i].schedules[0].timetables[0].hours.end = '10:00'
   
-          classThings[i].schedules[1].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[1].timetables[0].days = ['We', 'Fr']
           classThings[i].schedules[1].timetables[0].hours.ini = '10:00'
           classThings[i].schedules[1].timetables[0].hours.end = '12:00'
   
-          classThings[i].schedules[2].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[0].days = ['We', 'Fr']
           classThings[i].schedules[2].timetables[0].hours.ini = '12:00'
           classThings[i].schedules[2].timetables[0].hours.end = '14:00'
   
-          classThings[i].schedules[3].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[3].timetables[0].days = ['We', 'Fr']
           classThings[i].schedules[3].timetables[0].hours.ini = '14:00'
           classThings[i].schedules[3].timetables[0].hours.end = '16:00'
   
-          classThings[i].schedules[4].timetables[0].days = ['Mi', 'Vi']
+          classThings[i].schedules[4].timetables[0].days = ['We', 'Fr']
           classThings[i].schedules[4].timetables[0].hours.ini = '16:00'
           classThings[i].schedules[4].timetables[0].hours.end = '18:00'
         }
@@ -132,18 +132,18 @@ class App extends AppFilled {
           this.addSchedule(classThings[i].id)
           this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
   
-          classThings[i].schedules[0].timetables[0].days = ['Lu', 'Mi', 'Vi']
+          classThings[i].schedules[0].timetables[0].days = ['Mo', 'We', 'Fr']
           classThings[i].schedules[0].timetables[0].hours.ini = '16:00'
           classThings[i].schedules[0].timetables[0].hours.end = '18:00'
   
-          classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[1].timetables[0].days = ['Mo', 'Tu', 'Th']
           classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
           classThings[i].schedules[1].timetables[0].hours.end = '14:00'
   
-          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].days = ['Mo']
           classThings[i].schedules[2].timetables[0].hours.ini = '14:00'
           classThings[i].schedules[2].timetables[0].hours.end = '16:00'
-          classThings[i].schedules[2].timetables[1].days = ['Ma', 'Ju']
+          classThings[i].schedules[2].timetables[1].days = ['Tu', 'Th']
           classThings[i].schedules[2].timetables[1].hours.ini = '06:00'
           classThings[i].schedules[2].timetables[1].hours.end = '08:00'
         }
@@ -157,22 +157,22 @@ class App extends AppFilled {
           this.addTimetable(classThings[i].id, classThings[i].schedules[2].id)
           this.addSchedule(classThings[i].id)
   
-          classThings[i].schedules[0].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[0].timetables[0].days = ['Mo', 'Tu', 'Th']
           classThings[i].schedules[0].timetables[0].hours.ini = '06:00'
           classThings[i].schedules[0].timetables[0].hours.end = '08:00'
   
-          classThings[i].schedules[1].timetables[0].days = ['Lu', 'Ma', 'Ju']
+          classThings[i].schedules[1].timetables[0].days = ['Mo', 'Tu', 'Th']
           classThings[i].schedules[1].timetables[0].hours.ini = '12:00'
           classThings[i].schedules[1].timetables[0].hours.end = '14:00'
   
-          classThings[i].schedules[2].timetables[0].days = ['Lu']
+          classThings[i].schedules[2].timetables[0].days = ['Mo']
           classThings[i].schedules[2].timetables[0].hours.ini = '10:00'
           classThings[i].schedules[2].timetables[0].hours.end = '12:00'
-          classThings[i].schedules[2].timetables[1].days = ['Mi', 'Vi']
+          classThings[i].schedules[2].timetables[1].days = ['We', 'Fr']
           classThings[i].schedules[2].timetables[1].hours.ini = '14:00'
           classThings[i].schedules[2].timetables[1].hours.end = '16:00'
   
-          classThings[i].schedules[3].timetables[0].days = ['Lu', 'Mi', 'Vi']
+          classThings[i].schedules[3].timetables[0].days = ['Mo', 'We', 'Fr']
           classThings[i].schedules[3].timetables[0].hours.ini = '06:00'
           classThings[i].schedules[3].timetables[0].hours.end = '08:00'
         }
@@ -225,15 +225,15 @@ class App extends AppFilled {
             {classInputs}
           </Form>
           <Button color="primary" onClick={this.addClass} style={{fontSize:14}}>
-            <i className="fa fa-plus" aria-hidden="true"></i> Clase
+            <i className="fa fa-plus" aria-hidden="true"></i> Class
           </Button>
           {' '}
           <Button color="success" onClick={this.ready} style={{fontSize:14}}>
-            <i className="fa fa-check" aria-hidden="true"></i> Listo
+            <i className="fa fa-check" aria-hidden="true"></i> Ready
           </Button>
           {' '}
           <Button color="primary" onClick={this.test} style={{fontSize:14}}>
-            <i className="fa fa-align-justify" aria-hidden="true"></i> Prueba
+            <i className="fa fa-align-justify" aria-hidden="true"></i> Test
           </Button>
           {/* {' '}
           <Button color="primary" onClick={this.textMode} style={{fontSize:14}}>

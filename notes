@@ -1,7 +1,0 @@
-- Se siguió este tutorial para la implementación de servidor y front-end: 
-  https://daveceddia.com/deploy-react-express-app-heroku/. Se usa create-react-app
-  para el client, y desde el servidor se usa la build de react para cargar la página.
-- El deployment en heroku fue relativamente sencillo, usando la opción de hacerlo
-  a través de GitHub.
-- Se instalaron todos los node_modules innecesarios en client haciendo npm install
-  en esa carpeta, cosa de la que normalmente se encarga create-react-app.

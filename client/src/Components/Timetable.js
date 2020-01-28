@@ -6,7 +6,7 @@ class Timetable extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      days: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
+      days: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
     }
     this.changeDaysChecked = this.changeDaysChecked.bind(this)
   }
@@ -52,7 +52,7 @@ class Timetable extends Component {
               </Col>
             </FormGroup>
             <FormGroup row style={{margin:0}}>
-              <Label sm={4} for="endTime">Fin</Label>
+              <Label sm={4} for="endTime">End</Label>
               <Col sm={8}>
                 {/* <Input type="time" name="time" id="endTime" bsSize="sm"
                   value={this.props.hours.end}
@@ -66,7 +66,7 @@ class Timetable extends Component {
               </Col>
             </FormGroup>
             <Button style={{marginTop:10,fontSize:14}} color="danger" onClick={e =>{e.preventDefault(); this.props.deleteTimetable(this.props.id)}}>
-              <i className="fa fa-times" aria-hidden="true"></i> Cuadro
+              <i className="fa fa-times" aria-hidden="true"></i> Box
             </Button>
           </CardBody>
         </Card>

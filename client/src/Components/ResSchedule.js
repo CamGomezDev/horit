@@ -7,8 +7,8 @@ class ResSchedule extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      daysRaw:   [], // días con las clases en desorden y horas de inicio y fin como strings
-      daysClean: [], // días con las clases en orden y horas de inicio y fin como ints
+      daysRaw:   [], // days with unorganized classes and ini and end times as strings
+      daysClean: [], // days with classes in order and ini and end times as ints
       classesWithColor: this.props.classesWithColor
     }
 
@@ -19,23 +19,23 @@ class ResSchedule extends Component {
   newWeekDays() {
     let days = [
       {
-        day:'Lu',
+        day:'Mo',
         slots:[]
       },
       {
-        day:'Ma',
+        day:'Tu',
         slots:[]
       },
       {
-        day:'Mi',
+        day:'We',
         slots:[]
       },
       {
-        day:'Ju',
+        day:'Th',
         slots:[]
       },
       {
-        day:'Vi',
+        day:'Fr',
         slots:[]
       },
       {
@@ -43,7 +43,7 @@ class ResSchedule extends Component {
         slots:[]
       },
       {
-        day:'Do',
+        day:'Su',
         slots:[]
       },
     ]
@@ -51,32 +51,32 @@ class ResSchedule extends Component {
     return days
   }
 
-  /* Se llena el arreglo days con los arreglos de todas las clases que se dan 
-     cada día y su horario del día */
+  /* The days array is filled with the arrays of all of the classes that are imparted
+     each day and its timeframe for the day */
   arrangeClassesByDay(classesWithSch) {
     let days = this.newWeekDays()
     for (let i = 0; i < classesWithSch.length; i++) {
       for (let e = 0; e < classesWithSch[i].timetables.length; e++) {
         for (let o = 0; o < classesWithSch[i].timetables[e].days.length; o++) {
-          if (classesWithSch[i].timetables[e].days[o] === 'Lu') {
+          if (classesWithSch[i].timetables[e].days[o] === 'Mo') {
             days[0].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if (classesWithSch[i].timetables[e].days[o] === 'Ma') {
+          if (classesWithSch[i].timetables[e].days[o] === 'Tu') {
             days[1].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if (classesWithSch[i].timetables[e].days[o] === 'Mi') {
+          if (classesWithSch[i].timetables[e].days[o] === 'We') {
             days[2].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if (classesWithSch[i].timetables[e].days[o] === 'Ju') {
+          if (classesWithSch[i].timetables[e].days[o] === 'Th') {
             days[3].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if (classesWithSch[i].timetables[e].days[o] === 'Vi') {
+          if (classesWithSch[i].timetables[e].days[o] === 'Fr') {
             days[4].slots.push(this.newSlot(classesWithSch[i], e))
           }
           if(classesWithSch[i].timetables[e].days[o] === 'Sa') {
             days[5].slots.push(this.newSlot(classesWithSch[i], e))
           }
-          if(classesWithSch[i].timetables[e].days[o] === 'Do') {
+          if(classesWithSch[i].timetables[e].days[o] === 'Su') {
             days[6].slots.push(this.newSlot(classesWithSch[i], e))
           }
         }
@@ -107,7 +107,7 @@ class ResSchedule extends Component {
     let daysBef = this.state.daysRaw
     let daysAft = this.newWeekDays()
 
-    // Se convierten las horas como strings en ints
+    // The times as strings are transformed into ints
     for (let i = 0; i < daysBef.length; i++) {
       for (let e = 0; e < daysBef[i].slots.length; e++) {
         daysAft[i].slots.push(JSON.parse(JSON.stringify(daysBef[i].slots[e])))
@@ -120,7 +120,7 @@ class ResSchedule extends Component {
       }
     }
 
-    // Se arreglan las clases en orden en cada día
+    // The classes are aranged in order each day
     for(let o = 0; o < daysAft.length; o++) {
       daysAft[o].slots.sort((a,b) => {
         if(a.ini < b.ini) {
@@ -137,7 +137,7 @@ class ResSchedule extends Component {
   render() {
     let h = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
     let daysCleanCopy = JSON.parse(JSON.stringify(this.state.daysClean))
-    // En este punto, las clases están en orden en cada día
+    // At this step, the classes are in order in each day
     let days = daysCleanCopy.map((day, step) => {
       let checked = false
       let hours = h.map((hour) => {
@@ -186,7 +186,7 @@ class ResSchedule extends Component {
               <td style={{margin:0,padding:0}}>
                 <Table size='sm' style={{margin:0,padding:0}}>
                   <tbody>
-                    <tr><td>Hora</td></tr>
+                    <tr><td>Time</td></tr>
                     <tr><td>6:00</td></tr>
                     <tr><td>7:00</td></tr>
                     <tr><td>8:00</td></tr>

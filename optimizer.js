@@ -3,34 +3,36 @@ module.exports = {
 }
 
 /*
-  Este código es el que genera todas las posibles combinaciones de los horarios.
+  This code is the one that generates all possible general schedules as a combina-
+  tion of courses' schedules.
 
-  - La entrada que recibe es los cursos, en donde cada uno tiene los diferentes ho-
-    rarios disponibles en forma de arreglo.
-  - La salida es todas las posibles combinaciones de dichos cursos que no generan
-    intersecciones.
+  - The input it receives is the courses, where each one has the different availa-
+    ble timeframes in the form of an array.
+  - The output is all the possible combinations from said courses that don't have
+    intersections.
 
-  Para hacer esto el proceso tiene tres etapas:
+  To do this the process has three stages:
 
-  1. Se desea poder acceder a todas las posibles combinaciones de estos cursos 
-     (todas sin excepción, se intersecten o no). Para esto se crea de forma recur-
-     siva el arreglo multi-dimensional indsRecurArray, en donde el número de dimen-
-     siones equivale al número de cursos, y el número de elementos en cada arreglo 
-     de cada dimensión equivale al número de horarios del curso correspondiente a
-     dicha dimensión.
+  1. We first want to create all possible combinations of these courses (intersec-
+     ting or not). For this, the multi-dimensional array indsRecurArray is created
+     recursively, where the number of dimensions is equal to the number of cour-
+     ses, and the number of elements in each array in each dimension is equal to
+     the number of schedules of the course corresponding to said dimension. Think
+     of it like a tree configuration.
 
-  2. Teniendo este arreglo ahora se llena la última dimensión con los arreglos de
-     índices que representan todas las posibles combinaciones de los cursos. Los
-     índices siendo aquellos que identifican a los horarios en cada curso.
+  2. Having this array, the last dimension is filled with the arrays of indices
+     that represent all possible combinations of the courses. The indices are still
+     those that identify the schedules of each course.
      
-  3. Finalmente se usa un nuevo arreglo goodCombs, que se llena a medida que se
-     va llenado la última dimensión del anterior, en el que se usan los índices
-     para comprobar si hay intersecciones entre cada uno de los horarios corres-
-     pondientes a dichos índices, que se hace comparando cada uno a fuerza bruta.
-     Si no se encuentra una intersección, esta combinación de horarios es buena
-     y se añade a goodCombs.
+  3. Finally a new array goodCombs is used, that is filled alongside the last di-
+     mension of the previous array, where the indices are used to check if there
+     are intersections between each of the schedules corresponding to said indi-
+     ces, which is done comparing each one with brute force. IF an intersection
+     is not found, this combination of schedules is considered good and added to
+     goodCombs.
 
-  Seguro hay otras formas de hacer esto pero esta es la primera que se me ocurrió.
+  There are surely other better ways to do this but this is the first one I came
+  up with.
 */
 
 function optimizer (courses) {
@@ -42,7 +44,7 @@ function optimizer (courses) {
 
   return {combs: goodCombs}
 
-  // Parte 1: creación recursiva de arreglo a ser llenado con índices
+  // Part 1: recursive creation of the array to be filled with indices
   function recurCreation(count, totDims, arrToFill) {
     count++
     for(let i = 0; i < totDims; i++) {
@@ -55,17 +57,17 @@ function optimizer (courses) {
   }
 
   function recurFill(count, totDims, currDimInRecurArr, indsArr) {
-    /* Parte 2: se cargan los índices en cada dimensión hasta llegar
-       a la última, en donde finalmente se rellenan los arreglos con los
-       mismos */
+    /* Part 2: the indices are "carried" through each dimension until
+       reaching the las one, where the arrays are finally filled with
+       them */
     if (currDimInRecurArr.length > 0) {
       for(let i = 0; i < currDimInRecurArr.length; i++) {
         let indsArrCopy = JSON.parse(JSON.stringify(indsArr))
         indsArrCopy.push(i)
         currDimInRecurArr[i] = recurFill(count + 1, totDims, currDimInRecurArr[i], indsArrCopy)
       }
-    /* Parte 3: si ya se llegó a la última dimensión usar el arreglo de
-       índices para hacer las comparaciones entre los horarios */
+    /* Part 3: if last dimension is reached use the array of indices
+       to make comparissons between schedules. */
     } else if (count === totDims) {
       let retObj = compareAndReturnComb(indsArr)
       if(retObj.isGoodComb) {
@@ -77,9 +79,9 @@ function optimizer (courses) {
     return currDimInRecurArr
   }
 
-  // Comprobación de intersecciones
+  // Intersection checking of all schedules in a single possible general schedule
   function compareAndReturnComb(indsArr) {
-    // Encontrar los arreglos en cada curso correspondiente a los índices
+    // Find the arrays in each course corresponding to the indices
     let schedsArray = []
     for(let i = 0; i < indsArr.length; i++) {
       let schedule = {}
@@ -90,7 +92,7 @@ function optimizer (courses) {
       schedsArray.push(schedule)
     }
     
-    // Comprobar intersecciones a fuerza bruta con cada horario
+    // Check intersections by brute fource
     let intersection = false
     for(let e = 0; e < schedsArray.length; e++) {
       for(let o = e + 1; o < schedsArray.length; o++) {

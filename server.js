@@ -10,8 +10,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-/* Permite múltiples orígenes (react estando en un servidor diferente de express)
-   para el desarrollo */
+/* Allows multiple origins (react being in a different server than express)
+   for development */
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*")
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")

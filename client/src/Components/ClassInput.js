@@ -85,10 +85,10 @@ class ClassInput extends Component {
           <Col lg={12} xl={9}>
             <Card>
               <CardBody>
-                <h5 style={{textAlign:'center'}}>Posibles horarios</h5>
+                <h5 style={{textAlign:'center'}}>Possible schedules for this class</h5>
                 {schedules}
                 <Button color="primary" style={{marginTop:15,fontSize:14}} onClick={(e) => {e.preventDefault(); this.props.addSchedule(this.props.id)}}>
-                  <i className="fa fa-plus rotate" aria-hidden="true"></i> Horario
+                  <i className="fa fa-plus rotate" aria-hidden="true"></i> Schedule
                 </Button>
               </CardBody>
             </Card>

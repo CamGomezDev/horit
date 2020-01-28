@@ -1,0 +1,32 @@
+- This tutorial was followed for front-end and server implementation: 
+  https://daveceddia.com/deploy-react-express-app-heroku/. create-react-app is 
+  used for the client, and from the server react's build is used to load the 
+  page.
+- Deployment on heroku was relatively easy, using the option to do it through
+  GitHub.
+- All unnecessary node_modules on the client were installed doing npm install
+  on that folder, thing for which create-react-app is usually responsible.
+
+
+How it works:
+- During development the command npm run dev (concurrently \"npm run server\" 
+  \"npm run client\") is used, that starts two servers. This allows development 
+  on the React application (its own server) while keeping its connection to the
+  main server file, which has the consequence of starting the build server. Any
+  change made on the code immediately shows on the development server. The 
+  front-end of the build server remains the same because it's showing what's in
+  the build folder, which doesn't change until final version is built.
+
+  Also for development:
+  - Change the ready function in App.js to localhost:5000 (or where react
+    started).
+  - Uncomment the multiple origins stuff in server.js
+
+
+- For final deployment npm run build --prefix client finally builds what's in
+  the client folder so that only one server (the build server) needs to be
+  started, that shows what's in the build folder. When this is uploaded to
+  heroku (or github), the command npm start is enough to run all of it (no own 
+  React server is needed).
+
+  For build: the opposite of the two things in the previous one.
