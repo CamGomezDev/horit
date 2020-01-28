@@ -1,9 +1,9 @@
-# App web de combinación de horarios
+# Web app for schedules combination
 
-Esta aplicación escrita en Node.js, cuyo servidor funciona con Express.js y su front-end funciona con ReactJS y reactstrap (Bootstrap para React), sirve para crear todas las posibles combinaciones de horarios posibles con base en un grupo de horarios iniciales. Se puede encontrar aquí: https://horit.herokuapp.com/ (tal vez tarde unos segundos en cargar).
+This application is written in Node.js, its server works with Express.js and its front-end works with ReactJS and reactstrap (Bootstrap for React). With it you can create all possible combinations of schedules based on a set of initial possible timeframes for different classes. It's available here: https://horit.herokuapp.com/ (may take a couple of seconds loading).
 
 ![alt text](https://github.com/dokasov/horit/blob/master/img/horit.png)
 
-Se puede presionar el botón Prueba y después Listo para ver cómo funciona, las flechas a la derecha de cada clase sirven para desplegar sus posibles horarios. Video en el que explico mejor cómo funciona: https://www.facebook.com/camilogozp/videos/2603947522948856/
+You can press the Test button and then Ready to see how it works, the array at the right of each class can be used to expand its possible schedules.
 
-La programé porque quería diseñar una forma más eficiente y rápida de crear mis horarios para la universidad. El algoritmo principal está en el archivo `optimizer.js` y todo el código de React está en `client`.
+I coded this because I wanted to design a more efficient and fast way to create schedules for university. The main algorithm is in the file `optimizer.js` and all of the React code is inside `client`.
