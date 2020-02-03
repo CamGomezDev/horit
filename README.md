@@ -4,6 +4,6 @@ This application is written in Node.js, its server works with Express.js and its
 
 ![alt text](https://github.com/dokasov/horit/blob/master/img/horit.png)
 
-You can press the Test button and then Ready to see how it works, the array at the right of each class can be used to expand its possible schedules.
+You can press the Test button and then Ready to see how it works, the arrow at the right of each class can be used to expand its possible schedules.
 
 I coded this because I wanted to design a more efficient and fast way to create schedules for university. The main algorithm is in the file `optimizer.js` and all of the React code is inside `client`.
